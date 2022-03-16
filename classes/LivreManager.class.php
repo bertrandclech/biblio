@@ -35,7 +35,7 @@ class LivreManager extends BDD {
 
 	/**
 	 * [Update an Advert in Db]
-	 * @param Advert $advert
+	 * @param Livre $livre
 	 * @return boolean
 	 */
 	public function updateLivre(Livre $livre) {
@@ -91,7 +91,7 @@ class LivreManager extends BDD {
 	}
 
 	/**
-	 * [Méthode qui retourne la liste des annonces présentes en BDD sous forme de tableau associatif]
+	 * [Méthode qui retourne la liste des livres présentes en BDD sous forme de tableau associatif]
 	 * @return array
 	 */
 	public function listLivres() {

@@ -43,10 +43,10 @@ class Livre
      *
      * @return string
      */
-    private function getTitre()
+    public function getTitre()
     {
         return $this->titre;
-    }
+    }   
 
     /**
      * Définit le titre d'un livre
@@ -65,7 +65,7 @@ class Livre
      *
      * @return string
      */
-    private function getAuteur()
+    public function getAuteur()
     {
         return $this->auteur;
     }
