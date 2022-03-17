@@ -2,7 +2,8 @@
 
 <body class="p-4 text-center">
 
-    <h1 class="mb-5 text-success">GESTION DES LIVRES</h1>
+    <h1 class="mb-5 text-success">GESTION DES EMPRUNTS
+    </h1>
 
     <table class="table table-striped mt-5">
         <tr class="table-dark">

@@ -18,41 +18,41 @@ class EmpruntManager extends BDD {
 	 * [Save an Advert in Db]
 	 * @param Emprunt $advert
 	 */
-	public function add(Advert $advert) {
+	public function add(Emprunt $emprunt) {
 		// Préparation de la requête
-		$add_advert = $this->bdd->prepare('INSERT INTO advert(	advert.`abonne_id`
+		$add_emprunt = $this->bdd->prepare('INSERT INTO advert(	advert.`abonne_id`
                                                                 advert.`livre_id`,
                                                                 advert.`date_emprunt`,
 																advert.`date_rendu`)
 										   VALUES (:abonne_id, :livre_id, :date_emprunt, :date_rendu);');
 		// On associe une valeur aux différents marqueurs de la requête
-		$add_advert->bindValue(':abonne_id', $advert->getAbonne_id(), PDO::PARAM_INT);
-		$add_advert->bindValue(':livre_id', $advert->getLivre_id(), PDO::PARAM_INT);
-		$add_advert->bindValue(':date_emprunt', $advert->getDate_emprunt(), PDO::PARAM_STR);
-		$add_advert->bindValue(':date_rendu', $advert->getDate_rendu(), PDO::PARAM_STR);
+		$add_emprunt->bindValue(':abonne_id', $emprunt->getAbonne_id(), PDO::PARAM_INT);
+		$add_empruunt->bindValue(':livre_id', $emprunt->getLivre_id(), PDO::PARAM_INT);
+		$add_emprunt->bindValue(':date_emprunt', $emprunt->getDate_emprunt(), PDO::PARAM_STR);
+		$add_emprunt->bindValue(':date_rendu', $emprunt->getDate_rendu(), PDO::PARAM_STR);
 		// Exécution de la requête
-		$add_advert->execute();
+		$add_emprunt->execute();
 		// Retourne soit FALSE en cas d'erreur, soit le numéro de l'Id de l'annonce
         return $this->bdd->lastInsertId();
 	}
 
 	/**
-	 * [Update an Advert in Db]
-	 * @param Advert $advert
+	 * [Update an Emprunt in Db]
+	 * @param Emprunt $emp
 	 * @return boolean
 	 */
-	public function update(Advert $advert) {
+	public function update(Emprunt $emp) {
 		// Préparation de la requête
-		$update_advert = $this->bdd->prepare(' UPDATE `advert` SET 	advert.`abonne_id` = :abonne_id,
+		$update = $this->bdd->prepare(' UPDATE `advert` SET 	advert.`abonne_id` = :abonne_id,
 																  	advert.`livre_id` = :livre_id,
 																  	advert.`date_emprunt` = :date_emprunt,
 																  	advert.`date_rendu` = :date_rendu,
 											   WHERE advert.`id_advert` = :id_advert;');
 		// On associe une valeur aux différents marqueurs de la requête
-		$update_advert->bindValue(':abonne_id', $advert->getAbonne_id(), PDO::PARAM_INT);
-		$update_advert->bindValue(':livre_id', $advert->getLivre_id(), PDO::PARAM_INT);
-		$update_advert->bindValue(':date_emprunt', $advert->getDate_emprunt(), PDO::PARAM_STR);
-		$update_advert->bindValue(':date_rendu', $advert->getDate_rendu(), PDO::PARAM_STR);
+		$update->bindValue(':abonne_id', $emp->getAbonne_id(), PDO::PARAM_INT);
+		$update->bindValue(':livre_id', $emp->getLivre_id(), PDO::PARAM_INT);
+		$update->bindValue(':date_emprunt', $emp->getDate_emprunt(), PDO::PARAM_STR);
+		$update->bindValue(':date_rendu', $emp->getDate_rendu(), PDO::PARAM_STR);
 		// Exécution de la requête
 		$update_advert->execute();
 		// Retourne soit FALSE en cas d'erreur, doit le nombre de lignes affectés par la requète
@@ -60,99 +60,75 @@ class EmpruntManager extends BDD {
 	}
 
 	/**
-	 * [Delete an advert in Db]
-	 * @param Advert $advert
+	 * [Delete an Emprunt in Db]
+	 * @param Emprunt $emp
 	 * @return boolean
 	 */
-	public function delete(Advert $advert) {
-        $delete_advert = $this->bdd->prepare("DELETE FROM advert WHERE advert.`id_advert` = :id");
-        $delete_advert->bindValue(':id', $advert->getId_advert(), PDO::PARAM_INT);
-        $delete_advert->execute();
-        $delete_advert->closeCursor();
-        return ($delete_advert->rowCount());
+	public function delete(Emprunt $emp) {
+        $delete = $this->bdd->prepare("DELETE FROM emprunt WHERE emprunt.`id_emprunt` = :id");
+        $delete->bindValue(':id', $emp->getId_emprunt(), PDO::PARAM_INT);
+        $delete->execute();
+        $delete->closeCursor();
+        return ($delete->rowCount());
 	}
 
 	/**
-	 * [Get an advert by his Id]
+	 * [Get an Emprunt by his Id]
 	 * @param  int $id
 	 * @return array
 	 */
-	public function getById($id) {
-		$show_advert = $this->bdd->prepare(" SELECT (	advert.`abonne_id`
-                                                        advert.`livre_id`,
-                                                        advert.`date_emprunt`,
-                                                        advert.`date_rendu`,
-													category.`value` AS category
-            						   		FROM `advert`
-                                       		INNER JOIN `category` ON advert.`category_id` = category.`id_category`
-            						   		WHERE advert.`id_advert` = :id");
-		$show_advert->execute(['id' => $id]);
-		return $show_advert->fetch(PDO::FETCH_ASSOC);
+	public function getEmpruntById($id) {
+		$show = $this->bdd->prepare(" SELECT (	emprunt.`abonne_id`,
+                                                        emprunt.`livre_id`,
+                                                        emprunt.`date_emprunt`,
+                                                        emprunt.`date_rendu`
+            						   		FROM `emprunt`
+            						   		WHERE emprunt.`id_emprunt` = :id");
+		$show->execute(['id' => $id]);
+		return $show->fetch(PDO::FETCH_ASSOC);
 	}
 
 	/**
-	 * [Get an Object advert by his Id]
+	 * [Get an Object Emprunt by his Id]
 	 * @param  int  $id
-	 * @return  Advert
+	 * @return  Emprunt
 	 */
-	public function getAdvert($id) {
-		return new Advert($this->getById($id));
+	public function getEmprunt($id) {
+		return new Emprunt($this->getEmpruntById($id));
 	}
 
 	/**
-	 * [Méthode qui retourne la liste des annonces présentes en BDD sous forme de tableau associatif]
+	 * [Méthode qui retourne la liste des emprunts présents en BDD sous forme de tableau associatif]
 	 * @return array
 	 */
-	public function list() {
-        $list_adverts = $this->bdd->query('	SELECT 	advert.`abonne_id`
-                                                    advert.`livre_id`,
-                                                    advert.`date_emprunt`,
-                                                    advert.`date_rendu`,
-        										  	category.`value` AS category
-            							   	FROM `advert`
-            							   	INNER JOIN `category` ON advert.`category_id` = category.`id_category`;');
-        return $list_adverts->fetchAll(PDO::FETCH_ASSOC);
+	public function listEmprunts() {
+        $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
+											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
+											emprunt.`livre_id`, 
+											CONCAT( livre.`titre`, ' ', livre.`auteur`) AS livre, 
+											emprunt.`date_emprunt`, emprunt.`date_rendu` 
+											FROM `emprunt`
+											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
+											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`;');
+        return $list->fetchAll(PDO::FETCH_ASSOC);
 	}	
 
+		
 	/**
-	 * [Méthode qui retourne la liste des annonces présentes en BDD sous forme de tableau associatif dans l’ordre antéchronologique (la plus récente en premier) et seules les 15 dernières annonces]
+	 * [Méthode qui retourne la liste des 15 derniers emprunts présents en BDD sous forme de tableau associatif]
 	 * @return array
 	 */
-	public function listParts() {
-
-        $listParts_adverts = $this->bdd->query('SELECT 	advert.`id_emprunt`, 
-        												advert.`abonne_id`
-                                                        advert.`livre_id`,
-                                                        advert.`date_emprunt`,
-                                                        advert.`date_rendu`, 
-        										  		category.`value` AS category
-            							   		FROM `advert`
-            							   		INNER JOIN `category` ON advert.`category_id` = category.`id_category`  
-            							   		ORDER BY `created_at` DESC LIMIT 0, 15;');
-        return $listParts_adverts->fetchAll(PDO::FETCH_ASSOC);            
-	}
-
-	/**
-	 * [Modifie l'annonce en ajoutant un message de réservation]
-	 * @return boolean
-	 */
-	public function book(Advert $advert) {
-		$book_advert = $this->bdd->prepare('UPDATE `advert` 
-											SET advert.`reservation_message` = :reservation_message 
-											WHERE advert.`id_advert` = :id_advert');
-		$book_advert->bindValue(':reservation_message', $advert->getReservation_message(), PDO::PARAM_STR);
-		$book_advert->bindValue(':id_advert', $advert->getId_advert(), PDO::PARAM_INT);
-        $book_advert->execute();
-        $book_advert->closeCursor();
-        return ($book_advert->rowCount());
-	}
-
-	/**
-	 * [Retourne les différentes Categories sous forme de tableau]
-	 * @return array
-	 */
-	public function getCategory() {
-		return $this->bdd->query("SELECT * FROM `category`")->fetchAll(PDO::FETCH_ASSOC);
+	public function listLastEmprunts() {
+        $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
+											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
+											emprunt.`livre_id`, 
+											CONCAT( livre.`titre`, ' ', livre.`auteur`) AS livre, 
+											emprunt.`date_emprunt`, emprunt.`date_rendu` 
+											FROM `emprunt`
+											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
+											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`
+											LIMIT 15;');
+        return $list->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 }

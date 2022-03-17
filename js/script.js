@@ -3,7 +3,7 @@ $(document).ready(function(){
     //Initialisation du site et affichage du tableau de données de véhicules
     function afficheLivres() {
 
-        $.post ('controller.php',  // URL du dossier où s'effectue le traitement
+        $.post ('controller_livres.php',  // URL du dossier où s'effectue le traitement
                 'action=listLivres', // Valeur à 'envoyer', ici pas de valeurs à envoyer uniquement une indication pour le traitement
                 // Fonction de retour du traitement permettant l'affichage (données) est le retour du traitement suite à (echo) en PHP
                 function (donnees) { //traitement de la réponse
@@ -18,8 +18,8 @@ $(document).ready(function(){
                                 tab += '<td>' + livre.id_livre + '</td>';
                                 tab += '<td>' + livre.titre + '</td>';
                                 tab += '<td>' + livre.auteur + '</td>';
-                                tab += '<td>' + "<i class='bi bi-pencil-square'></i>" + '</td>';
-                                tab += '<td>' + "<i class='bi bi-trash3-fill'></i>" + '</td>';
+                                tab += '<td>' + '<i data-id=' + livre.id_livre + " class='bi bi-pencil-square'></i>" + '</td>';
+                                tab += '<td>' + '<i data-id=' + livre.id_livre + " class='bi bi-trash3-fill'></i>" + '</td>';
                             tab += '</tr>';
                         });
                         // j'insère mon tableau ainsi crée dans le DOM pour affichage
@@ -51,7 +51,7 @@ $(document).ready(function(){
             // si erreurForm  = 0 alors ca veut dire qu'il n'y a pas d'erreurs
             // j'envoie ma requête ajax
 
-            $.post('controller.php', // URL du dossier où s'effectue le traitement
+            $.post('controller_livres.php', // URL du dossier où s'effectue le traitement
                     params,  // Valeurs à 'envoyer' contenues dans la variable params
                     function (donnees) {  //traitement de la réponse
                         // console.log(donnees); // pensez à vérifier vos données ça peut servir !!
