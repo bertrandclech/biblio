@@ -42,12 +42,12 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        <ul class="nav nav-pills ml-auto">
 	            <li class="nav-item mx-2">
-	                <a class="nav-link active" href="#.php">Abonnés</a>
+	                <a class="nav-link active" href="abonnes.php">Abonnés</a>
 	            </li>
                 <li class="nav-item mx-2">
 	                <a class="nav-link active" href="livres.php">Livres</a>
 	            </li> <li class="nav-item mx-2">
-	                <a class="nav-link active" href="#.php">Emprunts</a>
+	                <a class="nav-link active" href="emprunts.php">Emprunts</a>
 	            </li>
 	        </ul>
 	    </div>
