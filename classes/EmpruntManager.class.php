@@ -16,7 +16,7 @@ class EmpruntManager extends BDD {
 
 	/**
 	 * [Save an Advert in Db]
-	 * @param Emprunt $advert
+	 * @param Emprunt $emprunt
 	 */
 	public function add(Emprunt $emprunt) {
 		// Préparation de la requête
@@ -105,7 +105,7 @@ class EmpruntManager extends BDD {
         $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
 											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
 											emprunt.`livre_id`, 
-											CONCAT( livre.`titre`, ' ', livre.`auteur`) AS livre, 
+											CONCAT( livre.`titre`, ' de ', livre.`auteur`) AS livre, 
 											emprunt.`date_emprunt`, emprunt.`date_rendu` 
 											FROM `emprunt`
 											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
@@ -122,7 +122,7 @@ class EmpruntManager extends BDD {
         $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
 											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
 											emprunt.`livre_id`, 
-											CONCAT( livre.`titre`, ' ', livre.`auteur`) AS livre, 
+											CONCAT( livre.`titre`, ' de ', livre.`auteur`) AS livre, 
 											emprunt.`date_emprunt`, emprunt.`date_rendu` 
 											FROM `emprunt`
 											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`

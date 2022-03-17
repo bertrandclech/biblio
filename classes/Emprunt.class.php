@@ -28,7 +28,7 @@ class Emprunt {
    /**
     * @var date
     */
-   private $date_rendu;
+   private ?string $date_rendu;
 
 
 /*  CONSTRUCTEUR DE LA CLASSE */
@@ -104,7 +104,7 @@ class Emprunt {
    /**
     * @param string $date_rendu
     */
-   private function setDate_rendu(string $date_rendu) { 
+   private function setDate_rendu(?string $date_rendu) { 
       $this->date_rendu = $date_rendu; 
    }  
 
