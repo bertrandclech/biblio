@@ -20,10 +20,10 @@ class EmpruntManager extends BDD {
 	 */
 	public function add(Emprunt $emprunt) {
 		// Préparation de la requête
-		$add_emprunt = $this->bdd->prepare('INSERT INTO advert(	advert.`abonne_id`
-                                                                advert.`livre_id`,
-                                                                advert.`date_emprunt`,
-																advert.`date_rendu`)
+		$add_emprunt = $this->bdd->prepare('INSERT INTO emprunt( emprunt.`abonne_id`
+                                                                 empruunt.`livre_id`,
+                                                                emprunt.`date_emprunt`,
+																emprunt.`date_rendu`)
 										   VALUES (:abonne_id, :livre_id, :date_emprunt, :date_rendu);');
 		// On associe une valeur aux différents marqueurs de la requête
 		$add_emprunt->bindValue(':abonne_id', $emprunt->getAbonne_id(), PDO::PARAM_INT);
@@ -43,20 +43,21 @@ class EmpruntManager extends BDD {
 	 */
 	public function update(Emprunt $emp) {
 		// Préparation de la requête
-		$update = $this->bdd->prepare(' UPDATE `advert` SET 	advert.`abonne_id` = :abonne_id,
-																  	advert.`livre_id` = :livre_id,
-																  	advert.`date_emprunt` = :date_emprunt,
-																  	advert.`date_rendu` = :date_rendu,
-											   WHERE advert.`id_advert` = :id_advert;');
+		$update = $this->bdd->prepare(' UPDATE `emprunt` SET 	emprunt.`abonne_id` = :abonne_id,
+																  	emprunt.`livre_id` = :livre_id,
+																  	emprunt.`date_emprunt` = :date_emprunt,
+																  	emprunt.`date_rendu` = :date_rendu,
+											   WHERE emprunt.`id_emprunt` = :id_emprunt;');
 		// On associe une valeur aux différents marqueurs de la requête
 		$update->bindValue(':abonne_id', $emp->getAbonne_id(), PDO::PARAM_INT);
 		$update->bindValue(':livre_id', $emp->getLivre_id(), PDO::PARAM_INT);
 		$update->bindValue(':date_emprunt', $emp->getDate_emprunt(), PDO::PARAM_STR);
 		$update->bindValue(':date_rendu', $emp->getDate_rendu(), PDO::PARAM_STR);
+		$update->bindValue(':id_emprunt', $emp->getId_emprunt(), PDO::PARAM_INT);
 		// Exécution de la requête
-		$update_advert->execute();
+		$update->execute();
 		// Retourne soit FALSE en cas d'erreur, doit le nombre de lignes affectés par la requète
-        return $update_advert->rowCount();
+        return $update->rowCount();
 	}
 
 	/**
@@ -81,9 +82,17 @@ class EmpruntManager extends BDD {
 		$show = $this->bdd->prepare(" SELECT (	emprunt.`abonne_id`,
                                                         emprunt.`livre_id`,
                                                         emprunt.`date_emprunt`,
-                                                        emprunt.`date_rendu`
+                                                        emprunt.`date_rendu,
+														CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS abonne,
+														abonne.`nom`,
+														abonne.`prenom`,
+														CONCAT( livre.`titre`, ' de ', livre.`auteur`) AS livre, 
+														livre.`nom`,
+														livre.`aute	ur`
             						   		FROM `emprunt`
-            						   		WHERE emprunt.`id_emprunt` = :id");
+            						   		WHERE emprunt.`id_emprunt` = :id
+											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
+											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`;");
 		$show->execute(['id' => $id]);
 		return $show->fetch(PDO::FETCH_ASSOC);
 	}

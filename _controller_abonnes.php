@@ -2,7 +2,6 @@
 // Auto-chargement des classes utilisées dans ce fichier
 require_once('autoload.php');
 // Instancie un manager pour les livres, abonnées ert emprunts
-$livreManager = new LivreManager();
 $abonneManager = new AbonneManager();
 
 //var_dump($_POST);
@@ -23,7 +22,7 @@ if (isset($_POST['action']) && $_POST['action'] ==  'listAbonnes') {   //je reco
 
 // Ajouter un Abonne à la BDD et vérifie que l'on vient bien d'un formulaire
 if ( isset($_POST['action']) && $_POST['action']=='addAbonne' && !empty($_POST) ) {
-    $addAction = $abonneManager->add(new Abonne([     'nom' => $_POST['nom'],
+    $addAction = $abonneManager->addAbonne(new Abonne([  'nom' => $_POST['nom'],
                                                       'prenom' => $_POST['prenom'] ]));
 
     $tab['resultat'] = $addAction;
@@ -33,8 +32,8 @@ if ( isset($_POST['action']) && $_POST['action']=='addAbonne' && !empty($_POST) 
 // Modifie une annonce dans la BDD et vérifie que l'on vient bien d'un formulaire
 if ( isset($_GET['action']) &&  $_GET['action']=='updateAbonne' && !empty($_POST) ) {
     $abonneManager->updateAbonne(new Abonne([ 'id_abonne' => $_POST['id_abonne'],
-                                        'nom' => $_POST['nom'],
-                                        'prenom' => $_POST['prenom'] ]));
+                                        'titre' => $_POST['titre'],
+                                        'auteur' => $_POST['auteur'] ]));
  //   ? header("Location: show.php?id=" . $_POST['id_abonne']) : header("Location: update.php?id=" . $_POST['id_advert']);
 }
 
@@ -44,3 +43,18 @@ if ( isset($_GET['action']) && $_GET['action']=='deleteAbonne'  ) {
 //    ? header('Location: list.php') 
 //    : header("Location: show.php?id=" . $_GET['id']); 
 }   
+
+// Ajouter un abonné à la BDD et vérifie que l'on vient bien d'un formulaire
+if ( isset($_GET['action']) && $_GET['action']=='addAbonne' && !empty($_POST) ) {
+    $addAction = $abonneManager->add(new Abonne([  'nom' => $_POST['nom'],
+                                                      'prenom' => $_POST['prenom'] ]));
+
+    echo $addAction;
+ //   if ($addAction ) {
+ //       header("Location: test_ajout_abonne.php");
+ //    } else {
+ //       header('Location: test_ajout_abonne.php');
+ //     }   
+}
+
+// header('Location: index.php');
