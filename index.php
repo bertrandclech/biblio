@@ -2,43 +2,51 @@
 
 <body class="p-4 text-center">
 
-    <h1 class="mb-5 text-success">GESTION DES LIVRES</h1>
+   <!-- Partie principale -->
+<main>
 
-    <table class="table table-striped mt-5">
-        <tr class="table-dark">
-            <th>Id</th>
-            <th>Titre</th>
-            <th>Auteur</th>
-        </tr>
+    <section class="container text-center py-5">
+    <h1 class="text-uppercase mt-3 h1">Bienvenue !</h1>
+    <p>Si vous voulez emprunter un livre vous êtes au bon endroit.</p>
+    </section>
+   
 
-        <tbody class="insert">
-<!--             Emplacement du tableau des livres -->
-            <tr>
-                <td colspan="5"  style="color: red">Aucun livre à afficher</td>
-            </tr>
-        </tbody>
-    </table>
+    <section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="text-uppercase mt-3 h2">Voici quelques informations afin de vous aider</h2>
+        <div class="separator"></div>
 
-    <div class="msg mt-3" style="color: red"></div>
+        <div class="row">
+            <!-- Colonne #1 -->
+            <div class="col-12 col-md-4">
+                <h3 class="text-uppercase fs-3 mt-3"><?php 
+                    include('autoload.php');
+                    $livresMgr = new LivreManager;
+                    echo( count($livresMgr->ListLivres()) ) ?> livres</h3>
+            </div>
 
-    <form id="livre" action="" method="">
-        <fieldset class="container border border-success rounded p-3">
-            <legend class="float-none w-auto text-success p-2"> Ajouter un nouveau livre </legend>
+            <!-- Colonne #2 -->
+            <div class="col-12 col-md-4">
+                <div class="circle">
+                </div>
+                <h3 class="text-uppercase fs-3 mt-3"><?php 
+                    include('autoload.php');
+                    $userMgr = new AbonneManager;
+                    echo( count($userMgr->ListAbonnes()) ) ?> Abonnés</h3>
+            </div>
 
-            <p>
-            <label for="titre">Titre : </label>
-            <input type="text" name="titre" id="titre">
+            <!-- Colonne #3 -->
+            <div class="col-12 col-md-4">
+                <h3 class="text-uppercase fs-3 mt-3"><?php 
+                    include('autoload.php');
+                    $empMgr = new EmpruntManager;
+                    echo( count($empMgr->LsEmprunts()) ) ?>  Emprunts</h3>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <label for="auteur" class="ms-5">Auteur : </label>
-            <input type="text" name="auteur" id="auteur">
-            </p>
-
-            <button class="btn btn-success mt-3" type="submit">Sauvegarder ce livre en BDD</button>
-
-        </fieldset>
-    </form>
-
-    
+</main>
 
 
 

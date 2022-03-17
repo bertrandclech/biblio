@@ -70,5 +70,16 @@ class AbonneManager extends BDD {
         return ($delete_abonne->rowCount());
 	}
 
+	/**
+	 * [Méthode qui retourne la liste des abonnées présents en BDD sous forme de tableau associatif]
+	 * @return array
+	 */
+	public function listAbonnes() {
+        $list = $this->bdd->query('	SELECT 	abonne.`id_abonne`, 
+        											abonne.`nom`, 
+        											abonne.`prenom`
+            							   	FROM `abonne`');
+        return $list->fetchAll(PDO::FETCH_ASSOC);
+	}
 
 }

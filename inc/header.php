@@ -34,7 +34,7 @@
 <header>
 
 	<nav class="navbar navbar-expand-lg navbar-dark pink darken-4 z-depth-2 mb-5">
-	    <a class="navbar-brand" href="#.php">BASE DE DONNEES BIBLIOTHEQUE</a>
+	    <a class="navbar-brand" href="index.php">BASE DE DONNEES BIBLIOTHEQUE</a>
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	    </button>

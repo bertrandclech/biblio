@@ -1,5 +1,5 @@
 <?php
-require_once 'bdd.class.php';
+require_once 'bdd/dataBase.php';
 
 class EmpruntManager extends BDD {
 
@@ -102,14 +102,14 @@ class EmpruntManager extends BDD {
 	 * @return array
 	 */
 	public function listEmprunts() {
-        $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
+        $list= $this->bdd->query("SELECT 	emprunt.`abonne_id`, 
 											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
 											emprunt.`livre_id`, 
 											CONCAT( livre.`titre`, ' de ', livre.`auteur`) AS livre, 
 											emprunt.`date_emprunt`, emprunt.`date_rendu` 
 											FROM `emprunt`
 											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
-											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`;');
+											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`;");
         return $list->fetchAll(PDO::FETCH_ASSOC);
 	}	
 
@@ -119,7 +119,7 @@ class EmpruntManager extends BDD {
 	 * @return array
 	 */
 	public function listLastEmprunts() {
-        $list= $this->bdd->query('SELECT 	emprunt.`abonne_id`, 
+        $list= $this->bdd->query("SELECT 	emprunt.`abonne_id`, 
 											CONCAT( abonne.`prenom`, ' ', abonne.`nom`) AS nom,
 											emprunt.`livre_id`, 
 											CONCAT( livre.`titre`, ' de ', livre.`auteur`) AS livre, 
@@ -127,7 +127,12 @@ class EmpruntManager extends BDD {
 											FROM `emprunt`
 											INNER JOIN `abonne` ON emprunt.`abonne_id` = abonne.`id_abonne`
 											INNER JOIN `livre`ON emprunt.`livre_id`= livre.`id_livre`
-											LIMIT 15;');
+											LIMIT 15;");
+        return $list->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function lsEmprunts() {
+        $list= $this->bdd->query("SELECT * FROM `emprunt`");
         return $list->fetchAll(PDO::FETCH_ASSOC);
 	}
 
