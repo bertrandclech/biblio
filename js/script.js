@@ -18,6 +18,8 @@ $(document).ready(function(){
                                 tab += '<td>' + livre.id_livre + '</td>';
                                 tab += '<td>' + livre.titre + '</td>';
                                 tab += '<td>' + livre.auteur + '</td>';
+                                tab += '<td>' + "<i class='bi bi-pencil-square'></i>" + '</td>';
+                                tab += '<td>' + "<i class='bi bi-trash3-fill'></i>" + '</td>';
                             tab += '</tr>';
                         });
                         // j'insère mon tableau ainsi crée dans le DOM pour affichage
