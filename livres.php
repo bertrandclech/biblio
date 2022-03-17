@@ -9,6 +9,8 @@
             <th>Id</th>
             <th>Titre</th>
             <th>Auteur</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
 
         <tbody class="insert">

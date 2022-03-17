@@ -45,9 +45,9 @@
 	                <a class="nav-link active" href="#.php">Abonnés</a>
 	            </li>
                 <li class="nav-item mx-2">
-	                <a class="nav-link active" href="#.php">Livre</a>
+	                <a class="nav-link active" href="livres.php">Livres</a>
 	            </li> <li class="nav-item mx-2">
-	                <a class="nav-link active" href="#.php">Emprunt</a>
+	                <a class="nav-link active" href="#.php">Emprunts</a>
 	            </li>
 	        </ul>
 	    </div>
